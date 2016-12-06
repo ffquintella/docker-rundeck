@@ -1,3 +1,6 @@
 [submodule "modules/rundeck"]
 	path = modules/rundeck
 	url = https://github.com/voxpupuli/puppet-rundeck.git
+[submodule "modules/staging"]
+	path = modules/staging
+	url = https://github.com/voxpupuli/puppet-staging.git
