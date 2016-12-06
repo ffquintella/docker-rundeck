@@ -2,19 +2,6 @@
 $real_appdir = "${confluence_installdir}/atlassian-confluence-${confluence_version}"
 
 
-# Fix dos2unix
-exec {'dos2unix-fix':
-  path    => '/bin:/sbin:/usr/bin:/usr/sbin',
-  cwd     => "${real_appdir}/bin",
-  command => '/opt/scripts/fixline.sh'
-} ->
-
-exec {'dos2unix-fix-start-service':
-  path    => '/bin:/sbin:/usr/bin:/usr/sbin',
-  cwd     => "/opt/scripts",
-  command => '/opt/scripts/fixline.sh'
-}
-
 $packs = split($extra_packs, ";")
 
 $packs.each |String $value| {
@@ -29,23 +16,49 @@ if $pre_run_cmd != '' {
   $real_pre_run_cmd = "echo 0;"
 }
 
-user {'confluence':
-  ensure => present
+if $rundeck_db_type == "DEDICATED" {
+
+  $url = "jdbc:${rundeck_db_tech}://${rundeck_db_server}:${rundeck_db_port}/${rundeck_db_schema}"
+
+  case $rundeck_db_tech {
+    'postgresql':           { $driver = 'org.postgresql.Driver' }
+    'mysql' :               { $driver = 'com.mysql.jdbc.Driver' }
+    'mssql' :               { $driver = 'com.inet.tds.TdsDriver' }
+    'oracle' :              { $driver = 'oracle.jdbc.driver.OracleDriver' }
+    default:                { $driver = 'org.postgresql.Driver' }
+  }
+
+  file{ '/etc/rundeck/rundeck-config.groovy':
+    content => "loglevel.default = \"INFO\"
+rdeck.base = \"/var/lib/rundeck\"
+rss.enabled = \"false\"
+
+rundeck.security.useHMacRequestTokens = true
+rundeck.security.apiCookieAccess.enabled = true
+
+dataSource {
+  dbCreate = \"update\"
+  url = \"${url}\"
+  driverClassName = \"${driver}\"
+  username = \"${rundeck_db_user}\"
+  password = \"${rundeck_db_password}\"
+  dialect = \"\"
 }
+
+grails.serverURL = \"http://127.0.0.1:4440\"
+rundeck.clusterMode.enabled = \"false\"
+",
+  }
+}
+
 # Using Pre-run CMD
 exec {'Pre Run CMD':
   path  => '/bin:/sbin:/usr/bin:/usr/sbin',
   command => $real_pre_run_cmd
 } ->
-exec {'Coping Configs':
-  path    => '/bin:/sbin:/usr/bin:/usr/sbin',
-  command => "echo \"Coping configs ...\"; cp -r /opt/confluence-config/* ${real_appdir}/conf; chown -R confluence:confluence ${real_appdir}/conf ",
-  creates => "${real_appdir}/conf/web.xml"
-} ->
+
 # Starting jira
-exec {'Starting Confluence':
+exec {'Starting Rundeck':
   path  => '/bin:/sbin:/usr/bin:/usr/sbin',
-  command => "echo \"Starting Confluence Server ...\"; ${real_appdir}/bin/start-confluence.sh & ",
-  user => 'confluence',
-  require => Exec['dos2unix-fix-start-service']
+  command => "echo \"Starting Rundeck Server ...\"; /etc/init.d/rundeckd start & ",
 }

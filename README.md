@@ -43,6 +43,20 @@ Not written yet.
 
 ## Configuration
 
+### Build Variables
+
+- RUNDECK_VERSION - The version to be installed
+
+### Extra Variables
+
+- FACTER_RUNDECK_DB_TYPE - HSQL or DEDICATED
+- FACTER_RUNDECK_DB_TECH - postgresql mysql sqlserver or oracle
+- FACTER_RUNDECK_DB_SERVER - the fqdn of the database server
+- FACTER_RUNDECK_DB_PORT - ex 5432
+- FACTER_RUNDECK_DB_SCHEMA - the name of the database schema
+- FACTER_RUNDECK_DB_USER - the name of the database user
+- FACTER_RUNDECK_DB_PASSWORD - the password to the database
+
 ### Data Store
 
 Not written yet.

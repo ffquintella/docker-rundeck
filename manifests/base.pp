@@ -1,17 +1,7 @@
 package {'sudo':
   ensure => present
-}->
-package{'zip':
-  ensure => present
 }
 
-package{'dos2unix':
-  ensure => present
-}
-
-package{'perl':
-  ensure => present
-}
 
 file{ '/etc/yum.repos.d/epel.repo':
   ensure => present,
@@ -46,41 +36,26 @@ file { "/opt/java_home/jdk1.${java_version}.0_${java_version_update}/jre/lib/sec
   target  => '/etc/pki/tls/certs/java/cacerts'
 }
 
-# Full update
+# Install rundeck repo
 exec {'Install repository':
-  path  => '/bin:/sbin:/usr/bin:/usr/sbin',
-  command => 'rpm -Uvh http://repo.rundeck.org/latest.rpm'
+  path    => '/bin:/sbin:/usr/bin:/usr/sbin',
+  command => 'rpm -Uvh http://repo.rundeck.org/latest.rpm',
+  creates => '/etc/yum.repos.d/rundeck.repo',
 } ->
-
-class { '::rundeck':
-  package_ensure => $rundeck_version,
-  rdeck_home     => $rundeck_homedir,
-  user           => $rundeck_user,
-  user_id        => $rundeck_user_id,
-  group_id       => $rundeck_group_id,
-}
-
-/*
-class { '::rundeck':
-  key_storage_type      => 'db',
-  projects_storage_type => 'db',
-  properties_dir        => $rundeck_configdir,
-  database_config       => {
-    'type'              => 'mysql',
-    'url'               => $db_url,
-    'username'          => 'rundeck',
-    'password'          => $db_pass,
-    'driverClassName'   => 'com.mysql.jdbc.Driver',
-  }
-}
-*/
-
 
 # Full update
 exec {'Full update':
   path  => '/bin:/sbin:/usr/bin:/usr/sbin',
   command => 'yum -y update'
 } ->
+
+package {'rundeck':
+  ensure => $rundeck_version,
+} ->
+package {'rundeck-config':
+  ensure => $rundeck_version,
+} ->
+
 # Cleaning unused packages to decrease image size
 exec {'erase installer':
   path  => '/bin:/sbin:/usr/bin:/usr/sbin',
@@ -90,16 +65,9 @@ exec {'erase installer':
 exec {'erase cache':
   path  => '/bin:/sbin:/usr/bin:/usr/sbin',
   command => 'rm -rf /var/cache/*'
-} ->
-exec {'erase logs':
-  path  => '/bin:/sbin:/usr/bin:/usr/sbin',
-  command => 'rm -rf /var/log/*'
 }
 
 
-package {'openssh': ensure => absent }
-package {'openssh-clients': ensure => absent }
-package {'openssh-server': ensure => absent }
 package {'rhn-check': ensure => absent }
 package {'rhn-client-tools': ensure => absent }
 package {'rhn-setup': ensure => absent }

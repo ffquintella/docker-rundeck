@@ -14,19 +14,13 @@ ENV LC_ALL=en_US.UTF-8
 ENV JAVA_HOME "/opt/java_home/java_home"
 
 ENV RUNDECK_VERSION "2.7.1"
-ENV RUNDECK_INSTALLDIR "/opt/rundeck"
-ENV RUNDECK_HOMEDIR "/opt/rundeck-home"
 
-ENV RUNDECK_USER "rundeck"
-ENV RUNDECK_USER_ID "5001"
-ENV RUNDECK_GROUP_ID "5001"
+# HSQL or DEDICATED
+ENV RUNDECK_DB_TYPE "HSQL"
+
 
 ENV FACTER_RUNDECK_VERSION $RUNDECK_VERSION
-ENV FACTER_RUNDECK_INSTALLDIR $RUNDECK_INSTALLDIR
-ENV FACTER_RUNDECK_HOMEDIR $RUNDECK_HOMEDIR
-ENV FACTER_RUNDECK_USER $RUNDECK_USER
-ENV FACTER_RUNDECK_USER_ID $RUNDECK_USER_ID
-ENV FACTER_RUNDECK_GROUP_ID $RUNDECK_GROUP_ID
+ENV FACTER_RUNDECK_DB_TYPE $RUNDECK_DB_TYPE
 
 ENV FACTER_JAVA_HOME "/opt/java_home"
 ENV FACTER_JAVA_VERSION "8"
@@ -47,9 +41,9 @@ RUN chmod +x /opt/scripts/start-service.sh ; ln -s /opt/scripts/start-service.sh
  yum clean all ; rm -rf /tmp/* ; rm -rf /var/cache/* ; rm -rf /var/tmp/* ; rm -rf /var/opt/staging
 
 # Ports Jira web interface
-EXPOSE 8090/tcp
+EXPOSE 4440/tcp
 
-WORKDIR $RUNDECK_HOMEDIR
+WORKDIR '/var/lib/rundeck'
 
 # Configurations folder, install dir
 #VOLUME  $CONFLUENCE_HOME
