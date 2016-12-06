@@ -4,3 +4,6 @@
 [submodule "modules/staging"]
 	path = modules/staging
 	url = https://github.com/voxpupuli/puppet-staging.git
+[submodule "modules/jdk_oracle"]
+	path = modules/jdk_oracle
+	url = https://github.com/tylerwalts/puppet-jdk_oracle.git
