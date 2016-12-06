@@ -19,3 +19,6 @@
 [submodule "modules/inifile"]
 	path = modules/inifile
 	url = https://github.com/puppetlabs/puppetlabs-inifile.git
+[submodule "modules/dirtree"]
+	path = modules/dirtree
+	url = https://github.com/puppetlabs/pltraining-dirtree.git

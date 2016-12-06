@@ -46,20 +46,15 @@ file { "/opt/java_home/jdk1.${java_version}.0_${java_version_update}/jre/lib/sec
   target  => '/etc/pki/tls/certs/java/cacerts'
 }
 
-file { $rundeck_configdir:
-  ensure  => directory,
-  owner   => $rundeck_user_id,
-  group   => $rundeck_group_id,
+# Full update
+exec {'Install repository':
+  path  => '/bin:/sbin:/usr/bin:/usr/sbin',
+  command => 'rpm -Uvh http://repo.rundeck.org/latest.rpm'
 } ->
 
-file { $rundeck_homedir:
-  ensure  => directory,
-  owner   => $rundeck_user_id,
-  group   => $rundeck_group_id,
-} ->
 
 class { '::rundeck':
-  properties_dir => $rundeck_configdir,
+  package_ensure => $rundeck_version,
   rdeck_home     => $rundeck_homedir,
   user           => $rundeck_user,
   user_id        => $rundeck_user_id,
