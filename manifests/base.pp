@@ -52,7 +52,6 @@ exec {'Install repository':
   command => 'rpm -Uvh http://repo.rundeck.org/latest.rpm'
 } ->
 
-
 class { '::rundeck':
   package_ensure => $rundeck_version,
   rdeck_home     => $rundeck_homedir,

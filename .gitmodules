@@ -22,3 +22,6 @@
 [submodule "modules/dirtree"]
 	path = modules/dirtree
 	url = https://github.com/puppetlabs/pltraining-dirtree.git
+[submodule "modules/alternatives"]
+	path = modules/alternatives
+	url = https://github.com/voxpupuli/puppet-alternatives.git
