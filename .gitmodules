@@ -16,3 +16,6 @@
 [submodule "modules/java_ks"]
 	path = modules/java_ks
 	url = https://github.com/puppetlabs/puppetlabs-java_ks.git
+[submodule "modules/inifile"]
+	path = modules/inifile
+	url = https://github.com/puppetlabs/puppetlabs-inifile.git
