@@ -1,3 +1,3 @@
-[submodule "modules"]
+[submodule "rundeck"]
 	path = modules
 	url = https://github.com/voxpupuli/puppet-rundeck.git
