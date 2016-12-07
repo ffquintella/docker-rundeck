@@ -1,7 +1,4 @@
 
-$real_appdir = "${confluence_installdir}/atlassian-confluence-${confluence_version}"
-
-
 $packs = split($extra_packs, ";")
 
 $packs.each |String $value| {
@@ -14,6 +11,13 @@ if $pre_run_cmd != '' {
   $real_pre_run_cmd = $pre_run_cmd
 } else {
   $real_pre_run_cmd = "echo 0;"
+}
+
+exec {'Resync rundeck etc dir':
+  path    => '/bin:/sbin:/usr/bin:/usr/sbin',
+  command => 'cp -a /d_bck/rundeck/* /etc/rundeck/',
+  creates => '/etc/rundeck/realm.properties',
+  before  => Exec['Starting Rundeck'],
 }
 
 if $rundeck_db_type == "DEDICATED" {
@@ -48,13 +52,14 @@ dataSource {
 grails.serverURL = \"http://127.0.0.1:4440\"
 rundeck.clusterMode.enabled = \"false\"
 ",
+  require => Exec['Resync rundeck etc dir'],
   }
 }
 
 # Using Pre-run CMD
 exec {'Pre Run CMD':
   path  => '/bin:/sbin:/usr/bin:/usr/sbin',
-  command => $real_pre_run_cmd
+  command => $real_pre_run_cmd,
 } ->
 
 # Starting jira

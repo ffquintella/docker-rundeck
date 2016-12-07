@@ -45,8 +45,9 @@ exec {'Install repository':
 
 # Full update
 exec {'Full update':
-  path  => '/bin:/sbin:/usr/bin:/usr/sbin',
-  command => 'yum -y update'
+  path    => '/bin:/sbin:/usr/bin:/usr/sbin',
+  command => 'yum -y update',
+  timeout => 1800,
 } ->
 
 package {'rundeck':
@@ -54,6 +55,17 @@ package {'rundeck':
 } ->
 package {'rundeck-config':
   ensure => $rundeck_version,
+} ->
+
+file { '/d_bck':
+  ensure  => directory,
+} ->
+
+file { '/d_bck/rundeck':
+  ensure  => directory,
+  recurse => true,
+  purge   => true,
+  source  => 'file:///etc/rundeck',
 } ->
 
 # Cleaning unused packages to decrease image size
