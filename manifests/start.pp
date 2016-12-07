@@ -49,7 +49,7 @@ dataSource {
   dialect = \"\"
 }
 
-grails.serverURL = \"${rundec_url}\"
+grails.serverURL = \"${rundeck_url}\"
 rundeck.clusterMode.enabled = \"false\"
 ",
   require => Exec['Resync rundeck etc dir'],
