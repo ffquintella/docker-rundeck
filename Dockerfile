@@ -2,7 +2,7 @@ FROM ffquintella/docker-puppet:latest
 
 MAINTAINER Felipe Quintella <docker-jira@felipe.quintella.email>
 
-LABEL version="2.7.1.3"
+LABEL version="2.7.1.4"
 LABEL description="This image contais the rundeck application to be used \
 as a server."
 
@@ -18,9 +18,12 @@ ENV RUNDECK_VERSION "2.7.1"
 # HSQL or DEDICATED
 ENV RUNDECK_DB_TYPE "HSQL"
 
+ENV RUNDECK_URL "http://127.0.0.1:4440"
+
 
 ENV FACTER_RUNDECK_VERSION $RUNDECK_VERSION
 ENV FACTER_RUNDECK_DB_TYPE $RUNDECK_DB_TYPE
+ENV FACTER_RUNDECK_URL $RUNDECK_URL
 
 ENV FACTER_JAVA_HOME "/opt/java_home"
 ENV FACTER_JAVA_VERSION "8"
