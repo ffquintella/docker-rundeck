@@ -2,7 +2,7 @@ FROM ffquintella/docker-puppet:latest
 
 MAINTAINER Felipe Quintella <docker-jira@felipe.quintella.email>
 
-LABEL version="2.7.1.4"
+LABEL version="2.7.1.5"
 LABEL description="This image contais the rundeck application to be used \
 as a server."
 

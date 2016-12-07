@@ -32,26 +32,20 @@ if $rundeck_db_type == "DEDICATED" {
     default:                { $driver = 'org.postgresql.Driver' }
   }
 
-  file{ '/etc/rundeck/rundeck-config.groovy':
-    content => "loglevel.default = \"INFO\"
-rdeck.base = \"/var/lib/rundeck\"
-rss.enabled = \"false\"
+  file{ '/etc/rundeck/rundeck-config.properties':
+    content => "#loglevel.default is the default log level for jobs: ERROR,WARN,INFO,VERBOSE,DEBUG
+loglevel.default=INFO
+rdeck.base=/var/lib/rundeck
 
-rundeck.security.useHMacRequestTokens = true
-rundeck.security.apiCookieAccess.enabled = true
-
-dataSource {
-  dbCreate = \"update\"
-  url = \"${url}\"
-  driverClassName = \"${driver}\"
-  username = \"${rundeck_db_user}\"
-  password = \"${rundeck_db_password}\"
-  dialect = \"\"
-}
-
-grails.serverURL = \"${rundeck_url}\"
-rundeck.clusterMode.enabled = \"false\"
-",
+#rss.enabled if set to true enables RSS feeds that are public (non-authenticated)
+rss.enabled=false
+# change hostname here
+grails.serverURL=${rundeck_url}
+dataSource.dbCreate = update
+dataSource.driverClassName = ${driver}
+dataSource.username = ${rundeck_db_user}
+dataSource.password = ${rundeck_db_password}
+dataSource.url = ${url}",
   require => Exec['Resync rundeck etc dir'],
   }
 }
