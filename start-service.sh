@@ -11,11 +11,11 @@ export java_home=$JAVA_HOME
 #/opt/jira/atlassian-jira-software-7.2.2-standalone/bin/start-jira.sh &
 
 
-while [ ! -f ${FACTER_CONFLUENCE_HOME}/logs/atlassian-confluence.log ]
+while [ ! -f /var/log/rundeck/rundeck.log ]
 do
   sleep 2
 done
-ls -l ${FACTER_CONFLUENCE_HOME}/logs/atlassian-confluence.log
+ls -l /var/log/rundeck/rundeck.log
 
-tail -n 0 -f ${FACTER_CONFLUENCE_HOME}/logs/atlassian-confluence.log &
+tail -n 0 -f /var/log/rundeck/rundeck.log &
 wait
