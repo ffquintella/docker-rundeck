@@ -9,7 +9,7 @@ This container contains the Rundeck Job Scheduler server installation based on L
 
 Current branch: latest
 
-*  `2.7.1.5`, `2.7.1.4`, `2.7.1.3`, `2.7.1.2`, `2.7.1.1`
+*  `2.7.1.6`, `2.7.1.5`, `2.7.1.4`, `2.7.1.3`, `2.7.1.2`, `2.7.1.1`
 
 For previous versions or newest releases see other branches.
 
@@ -19,7 +19,8 @@ Rundeck is a jobseduler with interdependeces and a nice GUI (http://rundeck.org)
 
 ### Version
 
-* Version: `2.7.1.5` - Latest: Change configuration file to rundeck-config.properties
+* Version: `2.7.1.6` - Latest: Small adjtments on logs
+* Version: `2.7.1.5` - Change configuration file to rundeck-config.properties
 * Version: `2.7.1.4` - Added the RUNDECK_URL parameter
 * Version: `2.7.1.3` - Fixes on the docker image & puppet base image upgrade
 * Version: `2.7.1.2` - Auto repopulation of /etc/rundeck in the case you want to mount it
