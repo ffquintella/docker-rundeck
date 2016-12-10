@@ -9,7 +9,7 @@ This container contains the Rundeck Job Scheduler server installation based on L
 
 Current branch: latest
 
-*  `2.7.1.6`, `2.7.1.5`, `2.7.1.4`, `2.7.1.3`, `2.7.1.2`, `2.7.1.1`
+*  `2.7.1.7`, `2.7.1.6`, `2.7.1.5`, `2.7.1.4`, `2.7.1.3`, `2.7.1.2`, `2.7.1.1`
 
 For previous versions or newest releases see other branches.
 
@@ -19,7 +19,8 @@ Rundeck is a jobseduler with interdependeces and a nice GUI (http://rundeck.org)
 
 ### Version
 
-* Version: `2.7.1.6` - Latest: Small adjtments on logs
+* Version: `2.7.1.7` - Latest: Changed the monitored file to see if sync is needed to jaas-loginmodule.conf
+* Version: `2.7.1.6` - Small adjtments on logs
 * Version: `2.7.1.5` - Change configuration file to rundeck-config.properties
 * Version: `2.7.1.4` - Added the RUNDECK_URL parameter
 * Version: `2.7.1.3` - Fixes on the docker image & puppet base image upgrade
@@ -65,6 +66,7 @@ We also sugest creating a volume to /var/lib/rundeck/projects
 - FACTER_RUNDECK_DB_SCHEMA - the name of the database schema
 - FACTER_RUNDECK_DB_USER - the name of the database user
 - FACTER_RUNDECK_DB_PASSWORD - the password to the database
+- FACTER_EXTRA_PACKS - A way to add extra packs that will be installed on the container initialization. The packs must be centos  7 packs and must be seppared by ;
 
 ### Data Store
 

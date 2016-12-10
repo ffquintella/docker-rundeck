@@ -16,7 +16,7 @@ if $pre_run_cmd != '' {
 exec {'Resync rundeck etc dir':
   path    => '/bin:/sbin:/usr/bin:/usr/sbin',
   command => 'cp -a /d_bck/rundeck/* /etc/rundeck/',
-  creates => '/etc/rundeck/realm.properties',
+  creates => '/etc/rundeck/jaas-loginmodule.conf',
   before  => Exec['Starting Rundeck'],
 }
 
