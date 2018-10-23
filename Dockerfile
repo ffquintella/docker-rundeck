@@ -1,4 +1,4 @@
-FROM ffquintella/docker-puppet:1.3.2
+FROM ffquintella/docker-puppet:1.4.1
 
 MAINTAINER Felipe Quintella <docker-jira@felipe.quintella.email>
 
@@ -42,7 +42,7 @@ RUN mkdir /etc/puppet; mkdir /etc/puppet/manifests ; mkdir /etc/puppet/modules ;
 COPY manifests /etc/puppet/manifests/
 COPY modules /etc/puppet/modules/
 COPY start-service.sh /opt/scripts/start-service.sh
-RUN chmod +x /opt/scripts/start-service.sh ; ln -s /opt/scripts/start-service.sh /usr/bin/start-service ; /bin/puppet apply  --modulepath=/etc/puppet/modules /etc/puppet/manifests/base.pp  ;\
+RUN chmod +x /opt/scripts/start-service.sh ; ln -s /opt/scripts/start-service.sh /usr/bin/start-service ; /opt/puppetlabs/puppet/bin/puppet apply  --modulepath=/etc/puppet/modules /etc/puppet/manifests/base.pp  ;\
  yum clean all ; rm -rf /tmp/* ; rm -rf /var/cache/* ; rm -rf /var/tmp/* ; rm -rf /var/opt/staging
 
 # Ports Jira web interface
