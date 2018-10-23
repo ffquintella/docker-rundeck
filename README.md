@@ -9,7 +9,7 @@ This container contains the Rundeck Job Scheduler server installation based on L
 
 Current branch: latest
 
-*  `3.0.7-1`
+*  `3.0.2-1`, `3.0.2-2`
 *  `2.10.2.1`
 *  `2.7.2.1`
 *  `2.7.1.7`, `2.7.1.6`, `2.7.1.5`, `2.7.1.4`, `2.7.1.3`, `2.7.1.2`, `2.7.1.1`
@@ -22,7 +22,7 @@ Rundeck is a jobseduler with interdependeces and a nice GUI (http://rundeck.org)
 
 ### Version
 
-* Version: `3.0.7-1` - Latest: Upgrade to 3.0.7 Upgrade to java 8-162
+* Version: `3.0.2-2` - Latest: Upgrade to 3.0.7 Upgrade to java 8-162
 * Version: `2.10.2.1` - Upgrade to 2.10.2 Upgrade to java 8-152
 * Version: `2.7.2.1` - Upgrade to 2.7.2
 * Version: `2.7.1.7` - Changed the monitored file to see if sync is needed to jaas-loginmodule.conf
