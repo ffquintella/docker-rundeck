@@ -1,11 +1,11 @@
 
-/*$packs = split($extra_packs, ";")
+$packs = split($extra_packs, ";")
 
 $packs.each |String $value| {
   package{$value:
     ensure => present
   }
-}*/
+}
 
 if $pre_run_cmd != '' {
   $real_pre_run_cmd = $pre_run_cmd
